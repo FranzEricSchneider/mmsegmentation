@@ -28,6 +28,10 @@ ARG CUDA
 ARG MMCV
 RUN ["/bin/bash", "-c", "pip install --no-cache-dir mmcv-full -f https://download.openmmlab.com/mmcv/dist/cu${CUDA//./}/torch${PYTORCH}/index.html"]
 
+# Needed for cv2 import
+RUN apt-get update
+RUN apt-get install ffmpeg libsm6 libxext6  -y
+
 # Install MMSegmentation
 RUN git clone https://github.com/open-mmlab/mmsegmentation.git /mmsegmentation
 WORKDIR /mmsegmentation
