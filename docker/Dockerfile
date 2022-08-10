@@ -33,8 +33,10 @@ RUN apt-get update
 RUN apt-get install ffmpeg libsm6 libxext6  -y
 
 # Install MMSegmentation
-RUN git clone https://github.com/open-mmlab/mmsegmentation.git /mmsegmentation
+RUN git clone https://github.com/russelldj/mmsegmentation.git /mmsegmentation
 WORKDIR /mmsegmentation
+RUN git reset --hard 98493fb032c392f6ca56bbcc364fcc5d47acee89
+RUN sed -i 's|, return_probabilities=return_probabilities||g' /mmsegmentation/mmseg/apis/inference.py
 ENV FORCE_CUDA="1"
 RUN pip install -r requirements.txt
 RUN pip install --no-cache-dir -e .
